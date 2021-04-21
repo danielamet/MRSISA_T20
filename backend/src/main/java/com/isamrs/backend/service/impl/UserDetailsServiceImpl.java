@@ -32,7 +32,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Authority authority=authorityRepository.findByUser(u);
 
         if (u == null) {
-            throw new UsernameNotFoundException(String.format("No user found with username '%s'.", username));
+            throw new UsernameNotFoundException(String.format("No user found with email '%s'.", username));
 
         } else {
             GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(authority.getName());

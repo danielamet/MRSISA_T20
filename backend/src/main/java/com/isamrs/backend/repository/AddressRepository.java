@@ -4,5 +4,5 @@ import com.isamrs.backend.model.Address;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AddressRepository extends JpaRepository<Address, Long> {
-    Address findByStreetAndCityAndZip(String street, String city, Integer zip);
+    Address findByStreetAndCityAndZipAndCountry(String street, String city, Integer zip, String country);
 }

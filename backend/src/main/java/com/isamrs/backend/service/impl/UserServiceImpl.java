@@ -1,5 +1,6 @@
 package com.isamrs.backend.service.impl;
 
+import com.isamrs.backend.dto.UpdateProfileDTO;
 import com.isamrs.backend.dto.UserDTO;
 import com.isamrs.backend.enumeration.RoleType;
 import com.isamrs.backend.model.Address;
@@ -38,7 +39,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUser(String email, String password) {
+    public User getUserEmailAndPassword(String email, String password) {
         return userRepository.findByEmailAndPassword(email, password);
     }
 
@@ -50,8 +51,9 @@ public class UserServiceImpl implements UserService {
         u.setSurname(userDTO.getSurname());
         u.setEmail(userDTO.getEmail());
         u.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        Address a = addressRepository.findByStreetAndCityAndZip(userDTO.getAddress().getStreet(),
-                userDTO.getAddress().getCity(), userDTO.getAddress().getZip());
+
+        Address a = addressRepository.findByStreetAndCityAndZipAndCountry(userDTO.getAddress().getStreet(),
+                userDTO.getAddress().getCity(), userDTO.getAddress().getZip(), userDTO.getAddress().getCountry());
         if(a == null) {
             a = new Address();
             a.setStreet(userDTO.getAddress().getStreet());
@@ -137,5 +139,55 @@ public class UserServiceImpl implements UserService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public User UpdateDTOtoUser(UpdateProfileDTO profileDTO) {
+        User user = userRepository.findUserByEmail(profileDTO.getEmail());
+        if (user == null) {return null;}
+
+        if (user.getName()!=profileDTO.getName() || profileDTO.getName()!="") {
+            user.setName(profileDTO.getName());
+        }
+
+        if (user.getSurname()!=profileDTO.getSurname() || profileDTO.getSurname()!="") {
+            user.setSurname(profileDTO.getSurname());
+        }
+
+        if (user.getPassword()!=profileDTO.getPassword() || profileDTO.getPassword()!="") {
+            if(profileDTO.getPassword()=="") {
+                user.setPassword(user.getPassword());
+            }
+            else {
+                user.setPassword(profileDTO.getPassword());}
+        }
+
+        Address a = addressRepository.findByStreetAndCityAndZipAndCountry(profileDTO.getAddress().getStreet(),
+                profileDTO.getAddress().getCity(), profileDTO.getAddress().getZip(), profileDTO.getAddress().getCountry());
+        if (a == null){
+            a = new Address();
+            a.setStreet(profileDTO.getAddress().getStreet());
+            a.setCity(profileDTO.getAddress().getCity());
+            a.setZip(profileDTO.getAddress().getZip());
+            a.setCountry(profileDTO.getAddress().getCountry());
+            addressRepository.save(a);
+        }
+
+        user.setAddress(a);
+
+        return user;
+    }
+
+    @Override
+    public boolean update(User u) {
+        if(u == null) {
+            return false;
+        }
+        try {
+            u.setPassword(passwordEncoder.encode(u.getPassword()));
+            userRepository.save(u);
+            return true;
+        }catch(Exception e){
+            return false;}
     }
 }

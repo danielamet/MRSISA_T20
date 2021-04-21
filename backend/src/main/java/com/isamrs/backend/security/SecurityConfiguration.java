@@ -28,6 +28,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    @Autowired
+    private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+
 
     @Autowired
     public void configureAuthentication(
@@ -76,11 +79,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         httpSecurity
                 .csrf().disable()
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                .exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint).and()
                 .authorizeRequests()
-//      //svi korisnici mogu da se registruju
-                .antMatchers("/user/register").permitAll();
+//      //svi korisnici mogu da se registruju, uloguju
+                .antMatchers("/api/user/register").permitAll()
+                .antMatchers("/api/user/login").permitAll()
+                .antMatchers("/api/user/update").authenticated();
+                //.anyRequest().authenticated();
 
 //		// Custom JWT based authentication
         httpSecurity.addFilterBefore(authenticationTokenFilterBean(),
