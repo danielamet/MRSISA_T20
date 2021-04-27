@@ -1,5 +1,6 @@
 package com.isamrs.backend.dto;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.isamrs.backend.enumeration.MedicineShape;
@@ -8,7 +9,7 @@ import com.isamrs.backend.model.Medicine;
 
 
 @NoArgsConstructor
-public class MedicineDTO {
+public class MedicineDTO implements Serializable{
 
     private Long id;
     private String name;
