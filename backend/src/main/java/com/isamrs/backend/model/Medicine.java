@@ -36,8 +36,8 @@ public class Medicine implements Serializable {
 	private boolean prescription;
 
     //TODO: Implementirati ovaj atribut kao listu referenci na kljuceve drugih lekova
-    //@Column(name="substitutes")
-    //private List<Long> medicineSubstituteIDs;
+    @Column(name="substitutes")
+    private String medicineSubstituteNames;
 
     // Dodatne napomene
     @Column(name="note")
@@ -46,7 +46,7 @@ public class Medicine implements Serializable {
     public Medicine() {
     }
 
-    public Medicine(Long id, String name, String type, MedicineShape shape, String composition, String manufacturer, boolean prescription, String note) {
+    public Medicine(Long id, String name, String type, MedicineShape shape, String composition, String manufacturer, boolean prescription, String medicineSubstituteNames, String note) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -54,18 +54,18 @@ public class Medicine implements Serializable {
         this.composition = composition;
         this.manufacturer = manufacturer;
         this.prescription = prescription;
-        //this.medicineSubstituteIDs = medicineSubstituteIDs;
+        this.medicineSubstituteNames = medicineSubstituteNames;
         this.note = note;
     }
 
-    public Medicine(String name, String type, MedicineShape shape, String composition, String manufacturer, boolean prescription, String note) {
+    public Medicine(String name, String type, MedicineShape shape, String composition, String manufacturer, boolean prescription, String medicineSubstituteNames, String note) {
         this.name = name;
         this.type = type;
         this.shape = shape;
         this.composition = composition;
         this.manufacturer = manufacturer;
         this.prescription = prescription;
-        //this.medicineSubstituteIDs = medicineSubstituteIDs;
+        this.medicineSubstituteNames = medicineSubstituteNames;
         this.note = note;
     }
 
@@ -93,9 +93,9 @@ public class Medicine implements Serializable {
         return prescription;
     }
 
-    // public List<Long> getMedicineSubstituteIDs() {
-    //     return medicineSubstituteIDs;
-    // }
+    public String getMedicineSubstituteNames() {
+        return medicineSubstituteNames;
+    }
 
     public String getNote() {
         return note;
@@ -125,9 +125,9 @@ public class Medicine implements Serializable {
         this.prescription = prescription;
     }
 
-    // public void setMedicineSubstituteIDs(List<Long> medicineSubstituteIDs) {
-    //     this.medicineSubstituteIDs = medicineSubstituteIDs;
-    // }
+    public void setMedicineSubstituteNames(String medicineSubstituteNames) {
+        this.medicineSubstituteNames = medicineSubstituteNames;
+    }
 
     public void setNote(String note) {
         this.note = note;
