@@ -40,6 +40,9 @@ public class User implements Serializable {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
     private Authority authority;
 
+    @ManyToOne
+    private Pharmacy pharmacy;
+
     public User() {
     }
 

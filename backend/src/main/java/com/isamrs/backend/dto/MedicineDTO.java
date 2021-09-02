@@ -1,5 +1,6 @@
 package com.isamrs.backend.dto;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.isamrs.backend.enumeration.MedicineShape;
@@ -8,7 +9,7 @@ import com.isamrs.backend.model.Medicine;
 
 
 @NoArgsConstructor
-public class MedicineDTO {
+public class MedicineDTO implements Serializable{
 
     private Long id;
     private String name;
@@ -18,9 +19,10 @@ public class MedicineDTO {
     private String manufacturer;
     private boolean prescription;
     //private List<Long> medicineSubstituteIDs;
+    private String medicineSubstituteNames;
     private String note;
 
-    public MedicineDTO(Long id, String name, String type, MedicineShape shape, String composition, String manufacturer, boolean prescription, String note) {
+    public MedicineDTO(Long id, String name, String type, MedicineShape shape, String composition, String manufacturer, boolean prescription, String medicineSubstituteNames, String note) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -28,6 +30,7 @@ public class MedicineDTO {
         this.composition = composition;
         this.manufacturer = manufacturer;
         this.prescription = prescription;
+        this.medicineSubstituteNames = medicineSubstituteNames;
         //this.medicineSubstituteIDs = medicineSubstituteIDs;
         this.note = note;
     }
@@ -40,6 +43,7 @@ public class MedicineDTO {
         this.composition = medicine.getComposition();
         this.manufacturer = medicine.getManufacturer();
         this.prescription = medicine.isPrescription();
+        this.medicineSubstituteNames = medicine.getMedicineSubstituteNames();
         //this.medicineSubstituteIDs = medicine.getMedicineSubstituteIDs();
         this.note = medicine.getNote();
     }
@@ -72,9 +76,9 @@ public class MedicineDTO {
         return prescription;
     }
 
-    // public List<Long> getMedicineSubstituteIDs() {
-    //     return medicineSubstituteIDs;
-    // }
+    public String getMedicineSubstituteNames() {
+        return medicineSubstituteNames;
+    }
 
     public String getNote() {
         return note;
@@ -108,9 +112,9 @@ public class MedicineDTO {
         this.prescription = prescription;
     }
 
-    // public void setMedicineSubstituteIDs(List<Long> medicineSubstituteIDs) {
-    //     this.medicineSubstituteIDs = medicineSubstituteIDs;
-    // }
+    public void setMedicineSubstituteNames(String medicineSubstituteNames) {
+        this.medicineSubstituteNames = medicineSubstituteNames;
+    }
 
     public void setNote(String note) {
         this.note = note;
