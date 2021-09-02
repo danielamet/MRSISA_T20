@@ -43,6 +43,9 @@ public class Medicine implements Serializable {
     @Column(name="note")
 	private String note;
 
+    @ManyToOne
+    private Pharmacy pharmacy;
+
     public Medicine() {
     }
 

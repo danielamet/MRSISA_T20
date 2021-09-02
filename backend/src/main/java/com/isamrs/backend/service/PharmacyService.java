@@ -6,7 +6,9 @@ import com.isamrs.backend.model.Pharmacy;
 import com.isamrs.backend.repository.PharmacyRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class PharmacyService {
 
     @Autowired
