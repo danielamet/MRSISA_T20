@@ -48,6 +48,7 @@ public class MedicineController {
             m.setManufacturer(mDTO.getManufacturer());
             m.setPrescription(mDTO.isPrescription());
             //m.setMedicineSubstituteIDs(mDTO.getMedicineSubstituteIDs());
+            m.setMedicineSubstituteNames(mDTO.getMedicineSubstituteNames());
             m.setNote(mDTO.getNote());
             
         } catch (Exception e) {
@@ -65,7 +66,7 @@ public class MedicineController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        MedicineDTO mDTO = new MedicineDTO(m.getId(), m.getName(), m.getType(), m.getShape(), m.getComposition(), m.getManufacturer(), m.isPrescription(), m.getNote());
+        MedicineDTO mDTO = new MedicineDTO(m.getId(), m.getName(), m.getType(), m.getShape(), m.getComposition(), m.getManufacturer(), m.isPrescription(), m.getMedicineSubstituteNames(), m.getNote());
         return new ResponseEntity<>(mDTO, HttpStatus.OK);
 
     }

@@ -128,7 +128,7 @@ const AddMedicine=()=>{
                     fullWidth
                     variant="contained"
                     color="primary"
-                    onClick="AlertSucc()"
+                    onClick="AlertSucc"
                     >
                         submit
                     </Button>
